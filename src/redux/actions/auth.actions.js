@@ -70,3 +70,16 @@ export const loginUser = (email, password) => (dispatch) => {
       dispatch(loginFailure);
     });
 };
+
+export const logoutUser = () => (dispatch) => {
+  dispatch(logoutRequest());
+  myFirebase
+    .auth()
+    .signOut()
+    .then(() => {
+      dispatch(logoutSuccess());
+    })
+    .catch((error) => {
+      dispatch(logoutFailure());
+    });
+};
