@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,6 +19,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useMediaQuery } from "@material-ui/core";
+
+import { logoutUser } from "../../redux/actions/auth.actions";
 
 import "./menu.styles.scss";
 
@@ -85,15 +89,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Menu = () => {
+const Menu = ({
+  isLoggingOut,
+  logoutError,
+  isAuthenticated,
+  user,
+  dispatch,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
+  const showText = useMediaQuery("(min-width:600px)");
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
   };
 
   return (
@@ -124,7 +139,12 @@ const Menu = () => {
           >
             Dashboard
           </Typography>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleLogout}>
+            {showText && (
+              <Typography variant="caption" display="block" gutterBottom>
+                {user.email}
+              </Typography>
+            )}
             <ExitToAppIcon />
           </IconButton>
         </Toolbar>
@@ -163,4 +183,13 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+const mapStateToProps = (state) => {
+  return {
+    isLoggingOut: state.auth.isLoggingOut,
+    logoutError: state.auth.logoutError,
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps)(Menu);

@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,7 +9,6 @@ import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 
 import Menu from "../../components/menu/menu.component";
-import { logoutUser } from "../../redux/actions/auth.actions";
 
 const Copyright = () => {
   return (
@@ -48,18 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = ({
-  isLoggingOut,
-  logoutError,
-  isAuthenticated,
-  user,
-  dispatch,
-}) => {
+const HomePage = () => {
   const classes = useStyles();
-
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
 
   return (
     <div className={classes.root}>
@@ -67,13 +55,6 @@ const HomePage = ({
       <Menu />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <div>
-          <h1>This is your app's protected area.</h1>
-          <p>Any routes here will also be protected</p>
-          <button onClick={handleLogout}>Logout</button>
-          {isLoggingOut && <p>Logging Out....</p>}
-          {logoutError && <p>Error logging out</p>}
-        </div>
         <Container maxWidth="lg" className={classes.container}>
           <Box pt={4} className={classes.footer}>
             <Copyright />
@@ -84,13 +65,4 @@ const HomePage = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoggingOut: state.auth.isLoggingOut,
-    logoutError: state.auth.logoutError,
-    isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user,
-  };
-};
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;
