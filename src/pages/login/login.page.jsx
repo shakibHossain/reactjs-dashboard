@@ -45,17 +45,17 @@ const useStyles = makeStyles((theme) => ({
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  errorText: {
+    color: "#f50057",
+    marginBottom: 5,
+    textAlign: "center",
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-const LoginPage = ({
-  isLoggingIn,
-  loginInFailure,
-  isAuthenticated,
-  dispatch,
-}) => {
+const LoginPage = ({ isLoggingIn, loginError, isAuthenticated, dispatch }) => {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
@@ -106,6 +106,11 @@ const LoginPage = ({
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {loginError && (
+              <Typography component="p" className={classes.errorText}>
+                Incorrect email or password.
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -128,7 +133,7 @@ const LoginPage = ({
 const mapStateToProps = (state) => {
   return {
     isLoggingIn: state.auth.isLoggingIn,
-    loginInFailure: state.auth.loginInFailure,
+    loginError: state.auth.loginError,
     isAuthenticated: state.auth.isAuthenticated,
   };
 };

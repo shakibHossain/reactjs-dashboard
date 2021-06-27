@@ -67,7 +67,7 @@ export const loginUser = (email, password) => (dispatch) => {
       dispatch(loginSuccess(user));
     })
     .catch((error) => {
-      dispatch(loginFailure);
+      dispatch(loginFailure());
     });
 };
 
