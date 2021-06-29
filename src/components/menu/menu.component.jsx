@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -87,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
   sideMenuHeight: {
     height: "100vh",
   },
+  link: {
+    color: "black",
+    cursor: "pointer",
+    textDecoration: "none",
+  },
 }));
 
 const Menu = ({
@@ -168,13 +174,17 @@ const Menu = ({
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
-              <ListItemText primary="Dashboard" />
+              <Link to="/" className={classes.link}>
+                <ListItemText primary="Dashboard" />
+              </Link>
             </ListItem>
             <ListItem button>
               <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary="Employees" />
+              <Link to="/viewemployees" className={classes.link}>
+                <ListItemText primary="Employees" />
+              </Link>
             </ListItem>
           </List>
         </div>

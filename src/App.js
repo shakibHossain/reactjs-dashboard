@@ -7,6 +7,7 @@ import LoginPage from "./pages/login/login.page";
 import ProtectedRoute from "./components/protected-route/protected-route.component";
 
 import "./App.css";
+import ViewEmployeesPage from "./pages/view-employees/view-employees.page";
 
 function App({ isAuthenticated, isVerifying }) {
   return (
@@ -16,6 +17,13 @@ function App({ isAuthenticated, isVerifying }) {
           exact
           path="/"
           component={HomePage}
+          isAuthenticated={isAuthenticated}
+          isVerifying={isVerifying}
+        />
+        <ProtectedRoute
+          exact
+          path="/viewemployees"
+          component={ViewEmployeesPage}
           isAuthenticated={isAuthenticated}
           isVerifying={isVerifying}
         />

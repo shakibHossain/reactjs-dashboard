@@ -45,7 +45,7 @@ export default function authReducer(state = INITIAL_STATE, action) {
         isAuthenticated: false,
         user: {},
       };
-    case actions.LOGIN_FAILURE:
+    case actions.LOGOUT_FAILURE:
       return {
         ...state,
         logoutError: true,

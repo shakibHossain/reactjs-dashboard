@@ -5,22 +5,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 
 import Menu from "../../components/menu/menu.component";
 
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        React JS Dashboard
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-};
+import "./view-employees.styles.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = () => {
+const ViewEmployeesPage = () => {
   const classes = useStyles();
 
   return (
@@ -55,8 +43,9 @@ const HomePage = () => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+          <h2>View Employees</h2>
           <Box pt={4} className={classes.footer}>
-            <Copyright />
+            {/* <Copyright /> */}
           </Box>
         </Container>
       </main>
@@ -64,4 +53,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ViewEmployeesPage;
