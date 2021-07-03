@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,10 +11,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 import Menu from "../../components/menu/menu.component";
 
 import "./view-employees.styles.scss";
+import ModalDialog from "../../components/modal-dialog/modal-dialog.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +44,12 @@ const useStyles = makeStyles((theme) => ({
   },
   pageheading: {
     textAlign: "center",
-    paddingBottom: 10,
+    paddingBottom: 40,
+  },
+  addEmployeeButton: {
+    display: "flex",
+    justifyContent: "flex-end",
+    paddingBottom: 15,
   },
 }));
 
@@ -59,6 +66,16 @@ const rows = [
 const ViewEmployeesPage = () => {
   const classes = useStyles();
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -73,6 +90,13 @@ const ViewEmployeesPage = () => {
           >
             View Employees
           </Typography>
+          <div className={classes.addEmployeeButton}>
+            <Button variant="contained" color="primary" onClick={handleOpen}>
+              Add Employee
+            </Button>
+          </div>
+          {/* Display modal and pass props */}
+          <ModalDialog open={open} handleClose={handleClose} />
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
