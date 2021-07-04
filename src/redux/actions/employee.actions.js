@@ -19,9 +19,10 @@ export const createEmployeeSuccess = (employee) => {
   };
 };
 
-export const createEmployeeFailure = () => {
+export const createEmployeeFailure = (error) => {
   return {
     type: CREATE_EMPLOYEE_FAILURE,
+    payload: error,
   };
 };
 
@@ -43,6 +44,6 @@ export const createEmployee = (firstName, lastName, email) => (dispatch) => {
       dispatch(createEmployeeSuccess(employee));
     })
     .catch((error) => {
-      dispatch(createEmployeeFailure());
+      dispatch(createEmployeeFailure(error));
     });
 };

@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+
 import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+
+import { createEmployee } from "../../redux/actions/employee.actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,17 +24,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Form = ({ handleClose }) => {
+const Form = ({ handleClose, dispatch, createEmployeeSuccess }) => {
   const classes = useStyles();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
 
+  useEffect(() => {
+    if (createEmployeeSuccess) {
+      handleClose();
+    }
+  }, [createEmployeeSuccess]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(firstName, lastName, email);
-    handleClose();
+    dispatch(createEmployee(firstName, lastName, email));
   };
 
   return (
@@ -72,4 +81,10 @@ const Form = ({ handleClose }) => {
   );
 };
 
-export default Form;
+const mapStateToProps = (state) => {
+  return {
+    createEmployeeSuccess: state.employee.createEmployeeSuccess,
+  };
+};
+
+export default connect(mapStateToProps)(Form);

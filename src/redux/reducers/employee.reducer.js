@@ -4,6 +4,7 @@ export const initialState = {
   createEmployeeRequest: false,
   createEmployeeSuccess: false,
   createEmployeeFailure: false,
+  createEmployeeErrorMessage: null,
   employee: {},
 };
 
@@ -25,6 +26,7 @@ export default function employeeReducer(state = initialState, action) {
         createEmployeeFailure: true,
         createEmployeeRequest: false,
         createEmployeeSuccess: false,
+        createEmployeeErrorMessage: action.payload,
       };
     default:
       return state;
