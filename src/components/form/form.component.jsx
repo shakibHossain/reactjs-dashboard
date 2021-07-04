@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { Button, TextField } from "@material-ui/core";
@@ -31,15 +31,14 @@ const Form = ({ handleClose, dispatch, createEmployeeSuccess }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    if (createEmployeeSuccess) {
-      handleClose();
-    }
-  }, [createEmployeeSuccess]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createEmployee(firstName, lastName, email));
+
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    handleClose();
   };
 
   return (

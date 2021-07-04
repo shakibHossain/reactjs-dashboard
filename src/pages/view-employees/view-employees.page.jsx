@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,9 +15,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 import Menu from "../../components/menu/menu.component";
+import ModalDialog from "../../components/modal-dialog/modal-dialog.component";
+import { readEmployees } from "../../redux/actions/employee.actions";
 
 import "./view-employees.styles.scss";
-import ModalDialog from "../../components/modal-dialog/modal-dialog.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,8 +41,18 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     bottom: 0,
   },
+  tableContainer: {
+    height: 450,
+    overflowY: "auto",
+  },
   table: {
     minWidth: 650,
+    height: 450,
+    overflowY: "hidden",
+  },
+  tbody: {
+    height: 450,
+    overflowY: "auto",
   },
   pageheading: {
     textAlign: "center",
@@ -53,17 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(firstName, lastName, email) {
-  return { firstName, lastName, email };
-}
-
-const rows = [
-  createData("test1", "test2", "test12@test.com"),
-  createData("test3", "test4", "test34@test.com"),
-  createData("test5", "test6", "test56@test.com"),
-];
-
-const ViewEmployeesPage = () => {
+const ViewEmployeesPage = ({ dispatch, employees }) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -75,6 +77,10 @@ const ViewEmployeesPage = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    dispatch(readEmployees());
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>
@@ -97,8 +103,12 @@ const ViewEmployeesPage = () => {
           </div>
           {/* Display modal and pass props */}
           <ModalDialog open={open} handleClose={handleClose} />
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+          <TableContainer component={Paper} className={classes.tableContainer}>
+            <Table
+              stickyHeader
+              className={classes.table}
+              aria-label="sticky table"
+            >
               <TableHead>
                 <TableRow>
                   <TableCell>First Name</TableCell>
@@ -106,12 +116,12 @@ const ViewEmployeesPage = () => {
                   <TableCell>Email</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.email}>
-                    <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.lastName}</TableCell>
-                    <TableCell>{row.email}</TableCell>
+              <TableBody className={classes.tbody}>
+                {employees.map((employee, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{employee.firstName}</TableCell>
+                    <TableCell>{employee.lastName}</TableCell>
+                    <TableCell>{employee.email}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -123,4 +133,10 @@ const ViewEmployeesPage = () => {
   );
 };
 
-export default ViewEmployeesPage;
+const mapStateToProps = (state) => {
+  return {
+    employees: state.employee.employees,
+  };
+};
+
+export default connect(mapStateToProps)(ViewEmployeesPage);
