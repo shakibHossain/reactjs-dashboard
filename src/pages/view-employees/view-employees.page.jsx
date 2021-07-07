@@ -16,6 +16,8 @@ import Button from "@material-ui/core/Button";
 
 import Menu from "../../components/menu/menu.component";
 import ModalDialog from "../../components/modal-dialog/modal-dialog.component";
+import DeleteEmployeeDialog from "../../components/delete-employee-dialog/delete-employee-dialog.component";
+
 import { readEmployees } from "../../redux/actions/employee.actions";
 
 import "./view-employees.styles.scss";
@@ -70,7 +72,11 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
 
   const [createEmployeeModalOpen, setCreateEmployeeModalOpen] = useState(false);
   const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
+  const [deleteEmployeeDialogOpen, setDeleteEmployeeDialogOpen] =
+    useState(false);
+    
   const [modalValue, setModalValue] = useState(null);
+  const [deleteModalValue, setDeleteModalValue] = useState(null);
 
   const handleCreateEmployeeModalOpen = () => {
     setCreateEmployeeModalOpen(true);
@@ -87,6 +93,15 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
 
   const handleEditEmployeeModalClose = () => {
     setEditEmployeeModalOpen(false);
+  };
+
+  const handleDeleteEmployeeDialogOpen = (id) => {
+    setDeleteModalValue(id);
+    setDeleteEmployeeDialogOpen(true);
+  };
+
+  const handleDeleteEmployeeDialogClose = () => {
+    setDeleteEmployeeDialogOpen(false);
   };
 
   useEffect(() => {
@@ -116,7 +131,7 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
               Add Employee
             </Button>
           </div>
-          {/* Display modal and pass props */}
+          {/* Display modals and pass props */}
           <ModalDialog
             createEmployeeModalOpen={createEmployeeModalOpen}
             handleCreateEmployeeModalClose={handleCreateEmployeeModalClose}
@@ -125,6 +140,11 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
             editEmployeeModalOpen={editEmployeeModalOpen}
             handleEditEmployeeModalClose={handleEditEmployeeModalClose}
             modalValue={modalValue}
+          />
+          <DeleteEmployeeDialog
+            deleteEmployeeDialogOpen={deleteEmployeeDialogOpen}
+            handleDeleteEmployeeDialogClose={handleDeleteEmployeeDialogClose}
+            deleteModalValue={deleteModalValue}
           />
 
           <TableContainer component={Paper} className={classes.tableContainer}>
@@ -161,6 +181,9 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
                         size="small"
                         variant="contained"
                         color="secondary"
+                        onClick={() =>
+                          handleDeleteEmployeeDialogOpen(employee.id)
+                        }
                       >
                         Delete
                       </Button>

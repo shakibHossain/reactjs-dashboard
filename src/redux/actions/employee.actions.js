@@ -12,6 +12,10 @@ export const READ_EMPLOYEES_FAILURE = "READ_EMPLOYEES_FAILURE";
 export const UPDATE_EMPLOYEE_REQUEST = "UPDATE_EMPLOYEE_REQUEST";
 export const UPDATE_EMPLOYEE_SUCCESS = "UPDATE_EMPLOYEE_SUCCESS";
 export const UPDATE_EMPLOYEE_FAILURE = "UPDATE_EMPLOYEE_FAILURE";
+// Delete employee redux action types
+export const DELETE_EMPLOYEE_REQUEST = "DELETE_EMPLOYEE_REQUEST";
+export const DELETE_EMPLOYEE_SUCCESS = "DELETE_EMPLOYEE_SUCCESS";
+export const DELETE_EMPLOYEE_FAILURE = "DELETE_EMPLOYEE_FAILURE";
 
 // Create employee redux action creators that return an action
 export const createEmployeeRequest = () => {
@@ -72,6 +76,27 @@ export const updateEmployeeSuccess = (employee) => {
 export const updateEmployeeFailure = (error) => {
   return {
     type: UPDATE_EMPLOYEE_FAILURE,
+    payload: error,
+  };
+};
+
+// Delete employee redux action creators that return an action
+export const deleteEmployeeRequest = () => {
+  return {
+    type: DELETE_EMPLOYEE_REQUEST,
+  };
+};
+
+export const deleteEmployeeSuccess = (id) => {
+  return {
+    type: DELETE_EMPLOYEE_SUCCESS,
+    payload: id,
+  };
+};
+
+export const deleteEmployeeFailure = (error) => {
+  return {
+    type: DELETE_EMPLOYEE_FAILURE,
     payload: error,
   };
 };
@@ -139,6 +164,21 @@ export function updateEmployee(id, firstName, lastName, email) {
       dispatch(updateEmployeeSuccess(employee));
     } catch (error) {
       dispatch(updateEmployeeFailure());
+    }
+  };
+}
+
+// Combine all delete employee action types in an asynchronous thunk
+export function deleteEmployee(id) {
+  return async (dispatch) => {
+    dispatch(deleteEmployeeRequest());
+
+    try {
+      const employeeRef = myDb.ref("employees").child(id);
+      employeeRef.remove();
+      dispatch(deleteEmployeeSuccess(id));
+    } catch (error) {
+      dispatch(deleteEmployeeFailure());
     }
   };
 }
