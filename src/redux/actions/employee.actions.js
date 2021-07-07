@@ -8,6 +8,10 @@ export const CREATE_EMPLOYEE_FAILURE = "CREATE_EMPLOYEE_FAILURE";
 export const READ_EMPLOYEES_REQUEST = "READ_EMPLOYEES_REQUEST";
 export const READ_EMPLOYEES_SUCCESS = "READ_EMPLOYEES_SUCCESS";
 export const READ_EMPLOYEES_FAILURE = "READ_EMPLOYEES_FAILURE";
+// Update employee redux action types
+export const UPDATE_EMPLOYEE_REQUEST = "UPDATE_EMPLOYEE_REQUEST";
+export const UPDATE_EMPLOYEE_SUCCESS = "UPDATE_EMPLOYEE_SUCCESS";
+export const UPDATE_EMPLOYEE_FAILURE = "UPDATE_EMPLOYEE_FAILURE";
 
 // Create employee redux action creators that return an action
 export const createEmployeeRequest = () => {
@@ -51,6 +55,27 @@ export const readEmployeesFailure = (error) => {
   };
 };
 
+// Update employee redux action creators that return an action
+export const updateEmployeeRequest = () => {
+  return {
+    type: UPDATE_EMPLOYEE_REQUEST,
+  };
+};
+
+export const updateEmployeeSuccess = (employee) => {
+  return {
+    type: UPDATE_EMPLOYEE_SUCCESS,
+    payload: employee,
+  };
+};
+
+export const updateEmployeeFailure = (error) => {
+  return {
+    type: UPDATE_EMPLOYEE_FAILURE,
+    payload: error,
+  };
+};
+
 //Combine all create employee action types in an asynchronous thunk
 export const createEmployee = (firstName, lastName, email) => (dispatch) => {
   dispatch(createEmployeeRequest());
@@ -73,7 +98,7 @@ export const createEmployee = (firstName, lastName, email) => (dispatch) => {
     });
 };
 
-// Combine all read employees action types in an 
+// Combine all read employees action types in an asynchronous thunk
 export function readEmployees() {
   return async (dispatch) => {
     dispatch(readEmployeesRequest());
@@ -94,6 +119,26 @@ export function readEmployees() {
       });
     } catch (error) {
       dispatch(readEmployeesFailure(error));
+    }
+  };
+}
+
+// Combine all update employee action types in an asynchronous thunk
+export function updateEmployee(id, firstName, lastName, email) {
+  return async (dispatch) => {
+    dispatch(updateEmployeeRequest());
+
+    try {
+      const employeeRef = myDb.ref("employees").child(id);
+      const employee = {
+        firstName,
+        lastName,
+        email,
+      };
+      employeeRef.update(employee);
+      dispatch(updateEmployeeSuccess(employee));
+    } catch (error) {
+      dispatch(updateEmployeeFailure());
     }
   };
 }

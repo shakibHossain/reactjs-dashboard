@@ -1,12 +1,40 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Form from "../form/form.component";
+import EditEmployeeForm from "../edit-employee-form/edit-employee-form.component";
 
-const ModalDialog = ({ open, handleClose }) => {
+const ModalDialog = ({
+  createEmployeeModalOpen,
+  handleCreateEmployeeModalClose,
+  editEmployeeModalOpen,
+  handleEditEmployeeModalClose,
+  modalValue,
+}) => {
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <Form handleClose={handleClose} />
-    </Dialog>
+    <div>
+      {createEmployeeModalOpen ? (
+        <Dialog
+          open={createEmployeeModalOpen}
+          onClose={handleCreateEmployeeModalClose}
+        >
+          <Form
+            handleCreateEmployeeModalClose={handleCreateEmployeeModalClose}
+          />
+        </Dialog>
+      ) : editEmployeeModalOpen ? (
+        <Dialog
+          open={editEmployeeModalOpen}
+          onClose={handleEditEmployeeModalClose}
+        >
+          <EditEmployeeForm
+            handleEditEmployeeModalClose={handleEditEmployeeModalClose}
+            modalValue={modalValue}
+          />
+        </Dialog>
+      ) : (
+        ""
+      )}
+    </div>
   );
 };
 

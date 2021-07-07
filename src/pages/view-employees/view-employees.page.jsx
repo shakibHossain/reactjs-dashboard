@@ -68,14 +68,25 @@ const useStyles = makeStyles((theme) => ({
 const ViewEmployeesPage = ({ dispatch, employees }) => {
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
+  const [createEmployeeModalOpen, setCreateEmployeeModalOpen] = useState(false);
+  const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
+  const [modalValue, setModalValue] = useState(null);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleCreateEmployeeModalOpen = () => {
+    setCreateEmployeeModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCreateEmployeeModalClose = () => {
+    setCreateEmployeeModalOpen(false);
+  };
+
+  const handleEditEmployeeModalOpen = (employee) => {
+    setModalValue(employee);
+    setEditEmployeeModalOpen(true);
+  };
+
+  const handleEditEmployeeModalClose = () => {
+    setEditEmployeeModalOpen(false);
   };
 
   useEffect(() => {
@@ -97,12 +108,25 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
             View Employees
           </Typography>
           <div className={classes.addEmployeeButton}>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleCreateEmployeeModalOpen}
+            >
               Add Employee
             </Button>
           </div>
           {/* Display modal and pass props */}
-          <ModalDialog open={open} handleClose={handleClose} />
+          <ModalDialog
+            createEmployeeModalOpen={createEmployeeModalOpen}
+            handleCreateEmployeeModalClose={handleCreateEmployeeModalClose}
+          />
+          <ModalDialog
+            editEmployeeModalOpen={editEmployeeModalOpen}
+            handleEditEmployeeModalClose={handleEditEmployeeModalClose}
+            modalValue={modalValue}
+          />
+
           <TableContainer component={Paper} className={classes.tableContainer}>
             <Table
               stickyHeader
@@ -114,6 +138,7 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
                   <TableCell>Email</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody className={classes.tbody}>
@@ -122,6 +147,24 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
                     <TableCell>{employee.firstName}</TableCell>
                     <TableCell>{employee.lastName}</TableCell>
                     <TableCell>{employee.email}</TableCell>
+                    <TableCell>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleEditEmployeeModalOpen(employee)}
+                      >
+                        Edit
+                      </Button>
+                      &nbsp;
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

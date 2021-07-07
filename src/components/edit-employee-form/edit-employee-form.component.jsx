@@ -5,7 +5,7 @@ import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-import { createEmployee } from "../../redux/actions/employee.actions";
+import { updateEmployee } from "../../redux/actions/employee.actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,27 +24,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Form = ({ handleCreateEmployeeModalClose, dispatch, createEmployeeSuccess }) => {
+const EditEmployeeForm = ({ handleEditEmployeeModalClose, modalValue, dispatch }) => {
   const classes = useStyles();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [id, setId] = useState(modalValue.id);
+  const [firstName, setFirstName] = useState(modalValue.firstName);
+  const [lastName, setLastName] = useState(modalValue.lastName);
+  const [email, setEmail] = useState(modalValue.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createEmployee(firstName, lastName, email));
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    handleCreateEmployeeModalClose();
+    dispatch(updateEmployee(id, firstName, lastName, email));
+    handleEditEmployeeModalClose();
   };
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <Typography component="h1" variant="h5">
-        Add Employee
+        Edit Employee
       </Typography>
       <TextField
         label="First Name"
@@ -69,21 +66,15 @@ const Form = ({ handleCreateEmployeeModalClose, dispatch, createEmployeeSuccess 
         onChange={(e) => setEmail(e.target.value)}
       />
       <div>
-        <Button variant="contained" onClick={handleCreateEmployeeModalClose}>
+        <Button variant="contained" onClick={handleEditEmployeeModalClose}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
-          Add
+          Edit
         </Button>
       </div>
     </form>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    createEmployeeSuccess: state.employee.createEmployeeSuccess,
-  };
-};
-
-export default connect(mapStateToProps)(Form);
+export default connect()(EditEmployeeForm);
