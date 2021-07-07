@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Form = ({ handleCreateEmployeeModalClose, dispatch, createEmployeeSuccess }) => {
+const CreateEmployeeForm = ({ handleCreateEmployeeModalClose, dispatch, createEmployeeSuccess }) => {
   const classes = useStyles();
 
   const [firstName, setFirstName] = useState("");
@@ -86,4 +86,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Form);
+export default connect(mapStateToProps)(CreateEmployeeForm);

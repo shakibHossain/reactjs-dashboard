@@ -1,6 +1,6 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
-import Form from "../form/form.component";
+import CreateEmployeeForm from "../create-employee-form/create-employee-form.component";
 import EditEmployeeForm from "../edit-employee-form/edit-employee-form.component";
 
 const ModalDialog = ({
@@ -17,7 +17,7 @@ const ModalDialog = ({
           open={createEmployeeModalOpen}
           onClose={handleCreateEmployeeModalClose}
         >
-          <Form
+          <CreateEmployeeForm
             handleCreateEmployeeModalClose={handleCreateEmployeeModalClose}
           />
         </Dialog>
