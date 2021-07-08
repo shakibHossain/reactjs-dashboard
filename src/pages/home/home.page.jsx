@@ -2,25 +2,11 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 import Menu from "../../components/menu/menu.component";
-
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        React JS Dashboard
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-};
+import OverviewCard from "../../components/overview-card/overview-card.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,14 +16,17 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     height: "100vh",
-    overflow: "auto",
+    overflow: "hidden",
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    padding: theme.spacing(4),
+    textAlign: "center",
   },
-  fixedHeight: {
-    height: 240,
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "hidden",
+    flexDirection: "column",
   },
   footer: {
     position: "fixed",
@@ -54,11 +43,19 @@ const HomePage = () => {
       <Menu />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Box pt={4} className={classes.footer}>
-            <Copyright />
-          </Box>
-        </Container>
+        <Grid container spacing={3} className={classes.container}>
+          {/* Oveview Cards */}
+          <Grid item xs={12} md={6} lg={6}>
+            <Paper>
+              <OverviewCard type="Users" value={5} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6}>
+            <Paper>
+              <OverviewCard type="Employees" value={15} />
+            </Paper>
+          </Grid>
+        </Grid>
       </main>
     </div>
   );
