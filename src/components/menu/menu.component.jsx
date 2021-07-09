@@ -170,22 +170,22 @@ const Menu = ({
         <Divider />
         <div className={classes.sideMenuHeight}>
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <Link to="/" className={classes.link}>
+            <Link to="/" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
                 <ListItemText primary="Dashboard" />
-              </Link>
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <Link to="/viewemployees" className={classes.link}>
+              </ListItem>
+            </Link>
+            <Link to="/viewemployees" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
                 <ListItemText primary="Employees" />
-              </Link>
-            </ListItem>
+              </ListItem>
+            </Link>
           </List>
         </div>
       </Drawer>
