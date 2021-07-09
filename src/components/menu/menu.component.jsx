@@ -143,7 +143,7 @@ const Menu = ({
             noWrap
             className={classes.title}
           >
-            Dashboard
+            CRUD Dashboard
           </Typography>
           <IconButton color="inherit" onClick={handleLogout}>
             {showText && (
