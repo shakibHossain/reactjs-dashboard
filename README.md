@@ -28,3 +28,12 @@ https://reactjs-dashboard-firebase.web.app/
 - Users can Create, Read, Update and Delete Employees
 
   
+## Screencast
+
+![Alt Text](https://media.giphy.com/media/YqT2keTiDvxifnqBwa/giphy.gif)
+
+
+
+
+
+  
