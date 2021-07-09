@@ -1,14 +1,16 @@
-
 # ReactJS Dashboard
 
 This is a CRUD application built with ReactJS, Redux and Firebase.
 
+## Screencast
+
+![Alt Text](https://media.giphy.com/media/YqT2keTiDvxifnqBwa/giphy.gif)
 
 ## Demo
 
-Link to demo - 
+Link to demo -
 https://reactjs-dashboard-firebase.web.app/
-  
+
 ## Tech Stack
 
 **ReactJS** for frontend
@@ -20,20 +22,9 @@ https://reactjs-dashboard-firebase.web.app/
 **Redux Thunk** for asynchronous actions
 
 **Firebase** used for authentication, data storage and hosting
-  
+
 ## Features
 
 - Users can log in with given user credentials (provided on login page)
 - Dashboard shows employees count
 - Users can Create, Read, Update and Delete Employees
-
-  
-## Screencast
-
-![Alt Text](https://media.giphy.com/media/YqT2keTiDvxifnqBwa/giphy.gif)
-
-
-
-
-
-  
