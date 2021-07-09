@@ -5,28 +5,22 @@ import Typography from "@material-ui/core/Typography";
 
 import { getEmployeesCount } from "../../redux/actions/employee.actions";
 
-const OverviewCard = ({ type, dispatch, employeesCount }) => {
-  const [numberOfEmployees, setNumberOfEmployees] = useState(null);
+const OverviewCard = ({ dispatch, employeesCount }) => {
+  const [numberOfEmployees, setNumberOfEmployees] = useState(employeesCount);
 
   useEffect(() => {
     dispatch(getEmployeesCount());
     setNumberOfEmployees(employeesCount);
-  }, [dispatch]);
+  }, [employeesCount]);
 
   return (
     <div>
       <Typography component="p" variant="body2" color="textSecondary">
-        {type}
+        Employees
       </Typography>
-      {type === "Employees" ? (
-        <Typography component="p" variant="h4">
-          {numberOfEmployees}
-        </Typography>
-      ) : (
-        <Typography component="p" variant="h4">
-          {5}
-        </Typography>
-      )}
+      <Typography component="p" variant="h4">
+        {numberOfEmployees}
+      </Typography>
     </div>
   );
 };
