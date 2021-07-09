@@ -9,8 +9,18 @@ export const initialState = {
   readEmployeesSuccess: false,
   readEmployeesFailure: false,
   readEmployeesFailureMessage: null,
+  updateEmployeeRequest: false,
+  updateEmployeeSuccess: false,
+  updateEmployeeFailure: false,
+  deleteEmployeeRequest: false,
+  deleteEmployeeSuccess: false,
+  deleteEmployeeFailure: false,
+  getEmployeesCountRequest: false,
+  getEmployeesCountSuccess: false,
+  getEmployeesCountFailure: false,
   employee: {},
   employees: [],
+  employeesCount: null,
 };
 
 export default function employeeReducer(state = initialState, action) {
@@ -56,6 +66,65 @@ export default function employeeReducer(state = initialState, action) {
         readEmployeesRequest: false,
         readEmployeesSuccess: false,
         readEmployeesFailureMessage: action.payload,
+      };
+    case actions.UPDATE_EMPLOYEE_REQUEST:
+      return {
+        ...state,
+        updateEmployeeRequest: true,
+      };
+    case actions.UPDATE_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        updateEmployeeSuccess: true,
+        updateEmployeeRequest: false,
+        updateEmployeeFailure: false,
+        employee: action.payload,
+      };
+    case actions.UPDATE_EMPLOYEE_FAILURE:
+      return {
+        ...state,
+        updateEmployeeFailure: true,
+        updateEmployeeSuccess: false,
+        updateEmployeeRequest: false,
+      };
+    case actions.DELETE_EMPLOYEE_REQUEST:
+      return {
+        ...state,
+        deleteEmployeeRequest: true,
+      };
+    case actions.DELETE_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        deleteEmployeeSuccess: true,
+        deleteEmployeeRequest: false,
+        deleteEmployeeFailure: false,
+      };
+    case actions.DELETE_EMPLOYEE_FAILURE:
+      return {
+        ...state,
+        deleteEmployeeFailure: true,
+        deleteEmployeeSuccess: false,
+        deleteEmployeeRequest: false,
+      };
+    case actions.GET_EMPLOYEES_COUNT_REQUEST:
+      return {
+        ...state,
+        getEmployeesCountRequest: true,
+      };
+    case actions.GET_EMPLOYEES_COUNT_SUCCESS:
+      return {
+        ...state,
+        getEmployeesCountSuccess: true,
+        getEmployeesCountRequest: false,
+        getEmployeesCountFailure: false,
+        employeesCount: action.payload,
+      };
+    case actions.GET_EMPLOYEES_COUNT_FAILURE:
+      return {
+        ...state,
+        getEmployeesCountFailure: true,
+        getEmployeesCountSuccess: false,
+        getEmployeesCountRequest: false,
       };
     default:
       return state;

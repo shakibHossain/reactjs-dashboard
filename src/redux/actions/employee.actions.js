@@ -16,6 +16,10 @@ export const UPDATE_EMPLOYEE_FAILURE = "UPDATE_EMPLOYEE_FAILURE";
 export const DELETE_EMPLOYEE_REQUEST = "DELETE_EMPLOYEE_REQUEST";
 export const DELETE_EMPLOYEE_SUCCESS = "DELETE_EMPLOYEE_SUCCESS";
 export const DELETE_EMPLOYEE_FAILURE = "DELETE_EMPLOYEE_FAILURE";
+// Get employees count action types
+export const GET_EMPLOYEES_COUNT_REQUEST = "GET_EMPLOYEES_COUNT_REQUEST";
+export const GET_EMPLOYEES_COUNT_SUCCESS = "GET_EMPLOYEES_COUNT_SUCCESS";
+export const GET_EMPLOYEES_COUNT_FAILURE = "GET_EMPLOYEES_COUNT_FAILURE";
 
 // Create employee redux action creators that return an action
 export const createEmployeeRequest = () => {
@@ -101,6 +105,27 @@ export const deleteEmployeeFailure = (error) => {
   };
 };
 
+// Get employees count redux action creators that return an action
+export const getEmployeesCountRequest = () => {
+  return {
+    type: GET_EMPLOYEES_COUNT_REQUEST,
+  };
+};
+
+export const getEmployeesCountSuccess = (count) => {
+  return {
+    type: GET_EMPLOYEES_COUNT_SUCCESS,
+    payload: count,
+  };
+};
+
+export const getEmployeesCountFailure = (error) => {
+  return {
+    type: GET_EMPLOYEES_COUNT_FAILURE,
+    payload: error,
+  };
+};
+
 //Combine all create employee action types in an asynchronous thunk
 export const createEmployee = (firstName, lastName, email) => (dispatch) => {
   dispatch(createEmployeeRequest());
@@ -179,6 +204,23 @@ export function deleteEmployee(id) {
       dispatch(deleteEmployeeSuccess(id));
     } catch (error) {
       dispatch(deleteEmployeeFailure());
+    }
+  };
+}
+
+// Combine all get employees count action types in an asynchronous thunk
+export function getEmployeesCount() {
+  return async (dispatch) => {
+    dispatch(getEmployeesCountRequest());
+
+    try {
+      const employeeRef = myDb.ref("employees");
+      employeeRef.on("value", (snapshot) => {
+        const count = snapshot.numChildren();
+        dispatch(getEmployeesCountSuccess(count));
+      });
+    } catch (error) {
+      dispatch(getEmployeesCountFailure());
     }
   };
 }

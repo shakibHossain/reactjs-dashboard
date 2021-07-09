@@ -47,12 +47,12 @@ const HomePage = () => {
           {/* Oveview Cards */}
           <Grid item xs={12} md={6} lg={6}>
             <Paper>
-              <OverviewCard type="Users" value={5} />
+              <OverviewCard type="Users" />
             </Paper>
           </Grid>
           <Grid item xs={12} md={6} lg={6}>
             <Paper>
-              <OverviewCard type="Employees" value={15} />
+              <OverviewCard type="Employees" />
             </Paper>
           </Grid>
         </Grid>
