@@ -1,6 +1,6 @@
 # React JS Dashboard
 
-This project is being built with React JS and Firebase.
+This project was built with ReactJS, Redux and Firebase.
 
 ## Features -
 

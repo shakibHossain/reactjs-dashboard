@@ -24,8 +24,6 @@ import { useMediaQuery } from "@material-ui/core";
 
 import { logoutUser } from "../../redux/actions/auth.actions";
 
-import "./menu.styles.scss";
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({

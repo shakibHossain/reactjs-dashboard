@@ -20,8 +20,6 @@ import DeleteEmployeeDialog from "../../components/delete-employee-dialog/delete
 
 import { readEmployees } from "../../redux/actions/employee.actions";
 
-import "./view-employees.styles.scss";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -74,7 +72,7 @@ const ViewEmployeesPage = ({ dispatch, employees }) => {
   const [editEmployeeModalOpen, setEditEmployeeModalOpen] = useState(false);
   const [deleteEmployeeDialogOpen, setDeleteEmployeeDialogOpen] =
     useState(false);
-    
+
   const [modalValue, setModalValue] = useState(null);
   const [deleteModalValue, setDeleteModalValue] = useState(null);
 

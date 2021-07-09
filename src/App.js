@@ -6,7 +6,6 @@ import HomePage from "./pages/home/home.page";
 import LoginPage from "./pages/login/login.page";
 import ProtectedRoute from "./components/protected-route/protected-route.component";
 
-import "./App.css";
 import ViewEmployeesPage from "./pages/view-employees/view-employees.page";
 
 function App({ isAuthenticated, isVerifying }) {

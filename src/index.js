@@ -10,8 +10,6 @@ import { verifyAuth } from "./redux/actions/auth.actions";
 import App from "./App";
 import rootReducer from "./redux/reducers";
 
-import "./index.css";
-
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))

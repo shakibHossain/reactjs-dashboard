@@ -13,8 +13,6 @@ import Container from "@material-ui/core/Container";
 
 import { loginUser } from "../../redux/actions/auth.actions";
 
-import "./login.styles.scss";
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -63,6 +61,13 @@ const LoginPage = ({ isLoggingIn, loginError, isAuthenticated, dispatch }) => {
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
+          </Typography>
+          <br />
+          <Typography component="p" variant="body2">
+            Email - test@test.com
+          </Typography>
+          <Typography component="p" variant="body2">
+            Password - password
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
